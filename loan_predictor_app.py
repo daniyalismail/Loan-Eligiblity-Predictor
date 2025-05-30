@@ -153,7 +153,6 @@ with st.expander("ℹ️ Instructions to Use", expanded=False):
     4.  Fill in all the required fields in the '📝 Enter Applicant Details' section below.
     5.  Click the "Evaluate Eligibility" button.
     6.  The result will indicate **Approved (1)** or **Not Approved (0)**.
-    7.  Ensure the `loan_approval_dataset.csv` file is in the same directory as this script if you are running it locally and it's not loading.
     """)
 
 # Load data and train model
@@ -228,11 +227,11 @@ else:
                     elif feature == 'cibil_score':
                         input_data[feature] = st.number_input(f'{label}', min_value=300, max_value=900, value=700, step=10, key=f"input_{feature}", help="Applicant's CIBIL score (credit score).")
                     elif 'income_annum' == feature:
-                         input_data[feature] = st.number_input(f'{label} (₹)', min_value=0.0, value=500000.0, step=10000.0, format="%.0f", key=f"input_{feature}", help="Annual income in Rupees.")
+                         input_data[feature] = st.number_input(f'{label} (Pkr)', min_value=0.0, value=500000.0, step=10000.0, format="%.0f", key=f"input_{feature}", help="Annual income in Rupees.")
                     elif 'loan_amount' == feature:
-                         input_data[feature] = st.number_input(f'{label} (₹)', min_value=0.0, value=1000000.0, step=50000.0, format="%.0f", key=f"input_{feature}", help="Requested loan amount in Rupees.")
+                         input_data[feature] = st.number_input(f'{label} (Pkr)', min_value=0.0, value=1000000.0, step=50000.0, format="%.0f", key=f"input_{feature}", help="Requested loan amount in Rupees.")
                     elif 'value' in feature : # For other asset values
-                         input_data[feature] = st.number_input(f'{label} (₹)', min_value=0.0, value=100000.0, step=10000.0, format="%.0f", key=f"input_{feature}", help=f"Value of {label.lower()} in Rupees.")
+                         input_data[feature] = st.number_input(f'{label} (Pkr)', min_value=0.0, value=100000.0, step=10000.0, format="%.0f", key=f"input_{feature}", help=f"Value of {label.lower()} in Rupees.")
                     else: # Default number input for any other numerical features (should be rare if dataset is as expected)
                         input_data[feature] = st.number_input(f'{label}', value=0.0, format="%.2f", key=f"input_{feature}")
                 except Exception as e:
