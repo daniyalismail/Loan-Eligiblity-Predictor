@@ -1,7 +1,7 @@
 {
   "builds": [
     {
-      "src": "loan_predictor_app_gemini.py",
+      "src": "loan_predictor_app.py",
       "use": "@streamlit/vercel-builder",
       "config": {
         "pythonVersion": "3.9"
@@ -11,7 +11,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "loan_predictor_app_gemini.py"
+      "dest": "loan_predictor_app.py"
     }
   ]
 }
