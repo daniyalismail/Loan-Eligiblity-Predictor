@@ -278,7 +278,7 @@ else:
                         st.balloons()
                     else:
                         st.error("😞 Loan Not Approved (Status: 0)")
-                    st.markdown("---")
+                    # st.markdown("---")
 
 
             except ValueError as ve:
