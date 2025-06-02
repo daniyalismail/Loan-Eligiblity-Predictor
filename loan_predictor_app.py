@@ -7,7 +7,6 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
 import matplotlib.pyplot as plt
 import seaborn as sns
-# import io # No longer explicitly needed with current structure
 
 # Function to plot confusion matrix
 def plot_confusion_matrix(cm, classes, title='Confusion Matrix', cmap=plt.cm.Blues):
@@ -271,7 +270,6 @@ else:
 
                 if input_df_scaled is not None:
                     prediction = model.predict(input_df_scaled)
-                    prediction_proba = model.predict_proba(input_df_scaled)
 
                     st.markdown("---")
                     st.subheader("🎯 Prediction Result:")
@@ -280,13 +278,7 @@ else:
                         st.balloons()
                     else:
                         st.error("😞 Loan Not Approved (Status: 0)")
-                    
-                    st.write("Confidence Scores:")
-                    prob_df = pd.DataFrame({
-                        'Outcome': ['Not Approved (0)', 'Approved (1)'],
-                        'Probability': [f"{prediction_proba[0][0]*100:.2f}%", f"{prediction_proba[0][1]*100:.2f}%"]
-                    })
-                    st.table(prob_df.set_index('Outcome'))
+                    st.markdown("---")
 
 
             except ValueError as ve:
