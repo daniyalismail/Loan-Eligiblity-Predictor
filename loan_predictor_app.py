@@ -293,5 +293,4 @@ else:
                 st.error(f"An unexpected error occurred during prediction: {e}")
                 st.error("Please check your inputs and try again.")
 
-st.markdown("---")
 st.markdown("<div style='text-align: center; color: grey;'>Developed By M.Daniyal Ismail (Roll No:39) & Syed Maazin Imran (Roll No:23)</div>", unsafe_allow_html=True)
