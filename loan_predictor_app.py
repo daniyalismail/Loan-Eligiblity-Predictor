@@ -160,6 +160,7 @@ X_train, X_test, y_train, y_test, scaler, feature_names, numerical_cols = load_a
 
 model = None
 accuracy = 0
+train_accuracy = 0
 conf_matrix = None
 class_report_str = None # Renamed for clarity (string version)
 
@@ -168,8 +169,14 @@ if X_train is not None and not X_train.empty and y_train is not None and not y_t
         model = LogisticRegression(random_state=42, solver='liblinear', class_weight='balanced') # Added class_weight
         model.fit(X_train, y_train)
 
+        # Calculate test metrics
         y_pred = model.predict(X_test)
         accuracy = accuracy_score(y_test, y_pred)
+        
+        # Calculate training metrics
+        y_train_pred = model.predict(X_train)
+        train_accuracy = accuracy_score(y_train, y_train_pred)
+        
         conf_matrix = confusion_matrix(y_test, y_pred)
         class_report_str = classification_report(y_test, y_pred, target_names=['Not Approved (0)', 'Approved (1)'])
 
@@ -183,9 +190,15 @@ else:
 # --- Sidebar ---
 st.sidebar.header("📊 Model Performance")
 if model is not None and accuracy > 0:
-    st.sidebar.subheader("Accuracy Score")
-    st.sidebar.metric(label="Accuracy", value=f"{accuracy*100:.2f}%", delta=None) # Using st.metric for a nicer look
-
+    st.sidebar.subheader("Accuracy Scores")
+    
+    # Display both accuracies in columns
+    col1, col2 = st.sidebar.columns(2)
+    with col1:
+        st.metric(label="Training Accuracy", value=f"{train_accuracy*100:.2f}%")
+    with col2:
+        st.metric(label="Test Accuracy", value=f"{accuracy*100:.2f}%")
+    
     st.sidebar.subheader("Confusion Matrix")
     if conf_matrix is not None:
         fig_cm_sidebar = plot_confusion_matrix(conf_matrix, classes=['No (0)', 'Yes (1)'], title="Confusion Matrix")
